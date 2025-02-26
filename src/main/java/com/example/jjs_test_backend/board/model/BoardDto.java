@@ -1,7 +1,12 @@
 package com.example.jjs_test_backend.board.model;
 
+import com.example.jjs_test_backend.comment.model.Comment;
+import com.example.jjs_test_backend.comment.model.CommentDto;
 import lombok.Builder;
 import lombok.Getter;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 public class BoardDto {
@@ -27,13 +32,21 @@ public class BoardDto {
         private String title;
         private String content;
         private String writer;
+        private List<CommentDto.CommentRes> commentList;
 
         public static BoardRes of(Board entity) {
+//            List<CommentDto.CommentRes> commentResList = entity.getCommentList().stream()
+//                    .map(CommentDto.CommentRes::of)
+//                    .collect(Collectors.toList());
+
             return BoardRes.builder()
                     .idx(entity.getIdx())
                     .title(entity.getTitle())
                     .content(entity.getContent())
                     .writer(entity.getWriter())
+                    .commentList(entity.getCommentList().stream()
+                            .map(CommentDto.CommentRes::of)
+                            .toList())
                     .build();
         }
     }

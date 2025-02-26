@@ -1,13 +1,14 @@
 package com.example.jjs_test_backend.board.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.example.jjs_test_backend.comment.model.Comment;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @AllArgsConstructor
@@ -21,5 +22,8 @@ public class Board {
     private String title;
     private String content;
     private String writer;
+
+    @OneToMany(mappedBy = "board", fetch = FetchType.EAGER)
+    private List<Comment> commentList = new ArrayList<>();
 
 }
